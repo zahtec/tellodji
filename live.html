@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <title>Tello - Live video stream</title>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <meta name="theme-color" content="rgb(0, 0, 0)">
+
+        <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@500&display=swap" rel="stylesheet">
+
+        <style>
+
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+
+            *:focus {
+                outline: none;
+            }
+
+            *:focus-visible {
+                outline: 2px solid var(--color-highlight);
+            }
+
+            html {
+                font-size: clamp(16px, 16px + 0.4vw, 28px);
+            }
+
+            body {
+                overflow: hidden;
+                color: white;
+                font-family: 'Heebo', arial, sans-serif;
+                display: flex;
+                align-items: center;
+                background-color: black;
+            }
+
+            body > video {
+                width: 100%;
+                position: absolute;
+                z-index: -1;
+            }
+
+            body > section {
+                display: flex;
+                flex-direction: column;
+                padding: 1rem 0;
+                width: 100%;
+                height: 100vh;
+                background: linear-gradient(black 0%, transparent 8%, transparent 92%, black 100%);
+                opacity: 0;
+                transition: opacity ease 0.2s;
+            }
+
+            body > section.hover {
+                opacity: 1;
+            }
+
+            section > div {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                user-select: none;
+                -webkit-user-select: none;
+                height: 1rem;
+                z-index: 2;
+                transition: transform ease 0.2s;
+                transform: translateY(-50px);
+            }
+
+            section > div.hover {
+                transform: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <video autoplay></video>
+
+        <section>
+            <div>
+                <p>Tello - Live video feed</p>
+            </div>
+        </section>
+
+        <div id="back"></div>
+
+        <script>
+            let e = document.querySelector('body > section');
+            let t = document.querySelector('section > div');
+            let v = document.querySelector('body > video');
+            e.addEventListener('mouseenter', () => {
+                e.classList.add('hover');
+                t.classList.add('hover');
+            });
+            e.addEventListener('mouseleave', () => {
+                e.classList.remove('hover');
+                t.classList.remove('hover');
+            });
+            let c = new Hls();
+            c.attachMedia(v);
+            c.on(Hls.Events.MEDIA_ATTACHED, () => {
+                c.loadSource('/play.m3u8');
+                v.play();
+            });
+        </script>
+
+        <script src="hls.js"></script>
+    </body>
+</html>
