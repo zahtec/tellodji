@@ -1,15 +1,15 @@
-# TelloPy
+# TelloPython
 A python library for controlling Tello drones using the 1.3 or 2.0 SDK.
 
 ## ⚙️ Features
-- Easy to use tello commands
+- Easy to use Tello commands
 - Diverse async/multithreaded capability with callback functions
 - Tons of preferences to customize the default distance the drone moves, rotates, etc...
 - Built-in video module with live webpage including a feed of the drone (Requires [ffmpeg](https://ffmpeg.org))
-- Fast
+- Fast & Sturdy
 
 ## ℹ️ Pythonic information
-- Supports python >= 3.10
+- Supports Python >= 3.10
 - Video class utilizes [python-ffmpeg](https://github.com/kkroening/ffmpeg-python) and requires [ffmpeg](https://ffmpeg.org) to be installed
 
 ## 🚀 Installation
@@ -17,19 +17,19 @@ A python library for controlling Tello drones using the 1.3 or 2.0 SDK.
 ### Using pip
 
 ```
-pip install tellopy
+pip install tellopython
 ```
 
 Or, if you have multiple versions of python installed:
 
 ```
-pip3 install tellopy
+pip3 install tellopython
 ```
 
 ### Using git
 
 ```
-git clone https://github.com/zahtec/tellopy.git
+git clone https://github.com/zahtec/tellopython.git
 ```
 
 ## 📔 Documentation
