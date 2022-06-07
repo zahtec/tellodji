@@ -1,4 +1,5 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
+from webbrowser import open as openweb
 from PIL.Image import open as openimg
 from numpy import frombuffer, uint8
 from .tello_error import TelloError
@@ -312,6 +313,8 @@ class TelloVideo:
 
             Thread(target = thread).start()
             Thread(target = self._web.serve_forever, daemon = True).start()
+
+            openweb('127.0.0.1', new = 2)
         else:
             rec = (input('pipe:', format='rawvideo', pix_fmt='rgb24').filter('scale', *resolution).output(f'{path}/{file}', pix_fmt='yuv420p', loglevel = 'quiet', r = framerate).overwrite_output().run_async())
             self._rec = True
@@ -384,6 +387,8 @@ class TelloVideo:
 
         Thread(target = thread).start()
         Thread(target = self._web.serve_forever, daemon = True).start()
+
+        openweb('127.0.0.1', new = 2)
 
     def stop_video(self) -> None:
         '''
