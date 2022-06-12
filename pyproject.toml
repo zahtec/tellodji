@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "tellodji"
-version = "0.1.6"
+version = "0.1.7"
 description = "A Python library for controlling Tello drones using the 1.3 or 2.0 SDK"
 authors = ["zahtec"]
 readme = "README.md"
