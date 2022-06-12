@@ -10,7 +10,7 @@ A python library for controlling Tello drones using the 1.3 or 2.0 SDK.
 
 ## ℹ️ Pythonic information
 - Supports Python >= 3.10
-- Video methods require [ffmpeg](https://ffmpeg.org) to be installed
+- Photo/Video methods require [ffmpeg](https://ffmpeg.org) to be installed
 
 ## 🚀 Installation
 
