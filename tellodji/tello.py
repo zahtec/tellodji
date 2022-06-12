@@ -147,25 +147,25 @@ class Tello:
     SD = (852, 480)
 
     def __init__(self, ips: tuple[int | None] = ('192.168.10.1', '0.0.0.0'), ports: tuple[int | None] = (8889, 8890, 11111), **opt) -> None:
-        if not type(ips) is tuple or not len(ips) == 2: raise TelloError('IP addresses provided were invalid. Please make sure it\'s a valid tuple with at least 1 address with others inputted as None')
-        elif not type(ports) is tuple or not len(ports) == 3: raise TelloError('Ports provided were invalid. Please make sure it\'s a valid tuple with at least 1 port with others inputted as None')
-        elif 'default_distance' in opt and (not type(opt['default_distance']) is int or not 20 <= opt['default_distance']): raise TelloError('Default distance value provided was invalid. Please make sure it\'s a valid integer and at at least 20cm')
-        elif 'default_rotation' in opt and (not type(opt['default_rotation']) is int or not 1 <= opt['default_rotation'] <= 360): raise TelloError('Default rotation value provided was invalid. Please make sure it\'s a valid integer and in between 1-360deg')
-        elif 'default_speed' in opt and (not type(opt['default_speed']) is int or not 10 <= opt['default_speed'] <= 60): raise TelloError('Default speed value provided was invalid. Please make sure it\'s a valid integer and between 10-60cm/s')
-        elif 'timeout' in opt and (not type(opt['timeout']) is int or not 0 <= opt['timeout']): raise TelloError('Timeout value provided was invalid. Please make sure it\'s a valid integer and at least 0')
-        elif 'mission_pad' in opt and not type(opt['mission_pad']) is bool: raise TelloError('Mission pad preference provided was invalid. Please make sure it\'s a valid boolean type')
-        elif 'safety' in opt and not type(opt['safety']) is bool: raise TelloError('Safety preference provided was invalid. Please make sure it\'s a valid boolean type')
-        elif 'sync' in opt and not (type(opt['sync']) is bool or callable(opt['sync'])): raise TelloError('Sync preference provided was invalid. Please make sure it\'s a valid boolean type or a callable')
-        elif 'takeoff' in opt and not type(opt['takeoff']) is bool: raise TelloError('Takeoff preference provided was invalid. Please make sure it\'s a valid boolean type')
-        elif 'syncfix' in opt and not type(opt['syncfix']) is bool: raise TelloError('Syncfix preference provided was invalid. Please make sure it\'s a valid boolean type')
-        elif 'debug' in opt and not type(opt['debug']) is bool: raise TelloError('Debug preference provided was invalid. Please make sure it\'s a valid boolean type')
-        elif 'video' in opt and not type(opt['video']) is bool: raise TelloError('Video preference provided was invalid. Please make sure it\'s a valid boolean type')
+        if not type(ips) is tuple or not len(ips) == 2: raise ValueError('IP addresses provided were invalid. Please make sure it\'s a valid tuple with at least 1 address with others inputted as None')
+        elif not type(ports) is tuple or not len(ports) == 3: raise ValueError('Ports provided were invalid. Please make sure it\'s a valid tuple with at least 1 port with others inputted as None')
+        elif 'default_distance' in opt and (not type(opt['default_distance']) is int or not 20 <= opt['default_distance']): raise ValueError('Default distance value provided was invalid. Please make sure it\'s a valid integer and at at least 20cm')
+        elif 'default_rotation' in opt and (not type(opt['default_rotation']) is int or not 1 <= opt['default_rotation'] <= 360): raise ValueError('Default rotation value provided was invalid. Please make sure it\'s a valid integer and in between 1-360deg')
+        elif 'default_speed' in opt and (not type(opt['default_speed']) is int or not 10 <= opt['default_speed'] <= 60): raise ValueError('Default speed value provided was invalid. Please make sure it\'s a valid integer and between 10-60cm/s')
+        elif 'timeout' in opt and (not type(opt['timeout']) is int or not 0 <= opt['timeout']): raise ValueError('Timeout value provided was invalid. Please make sure it\'s a valid integer and at least 0')
+        elif 'mission_pad' in opt and not type(opt['mission_pad']) is bool: raise ValueError('Mission pad preference provided was invalid. Please make sure it\'s a valid boolean type')
+        elif 'safety' in opt and not type(opt['safety']) is bool: raise ValueError('Safety preference provided was invalid. Please make sure it\'s a valid boolean type')
+        elif 'sync' in opt and not (type(opt['sync']) is bool or callable(opt['sync'])): raise ValueError('Sync preference provided was invalid. Please make sure it\'s a valid boolean type or a callable')
+        elif 'takeoff' in opt and not type(opt['takeoff']) is bool: raise ValueError('Takeoff preference provided was invalid. Please make sure it\'s a valid boolean type')
+        elif 'syncfix' in opt and not type(opt['syncfix']) is bool: raise ValueError('Syncfix preference provided was invalid. Please make sure it\'s a valid boolean type')
+        elif 'debug' in opt and not type(opt['debug']) is bool: raise ValueError('Debug preference provided was invalid. Please make sure it\'s a valid boolean type')
+        elif 'video' in opt and not type(opt['video']) is bool: raise ValueError('Video preference provided was invalid. Please make sure it\'s a valid boolean type')
 
         for ip in ips:
             if ip: ip_address(ip)
 
         for port in ports:
-            if port and not type(port) is int: raise TelloError('One or more ports provided were invalid. Please make sure they are integers and in proper port form')
+            if port and not type(port) is int: raise ValueError('One or more ports provided were invalid. Please make sure they are integers and in proper port form')
 
         self._ips = (ips[0], ips[1] if ips[1] else '0.0.0.0')
         self._ports = (ports[0], ports[1] if ports[1] else 8890, ports[2] if ports[2] else 11111)
@@ -238,15 +238,15 @@ class Tello:
         - ip: The IP that that you want the sockets to switch to (ipv4/ipv6)
         '''
 
-        if not type(ips) is tuple or not len(ips) == 2: raise TelloError('IP addresses provided were invalid. Please make sure it\'s a valid tuple with at least 1 address with others inputted as None')
+        if not type(ips) is tuple or not len(ips) == 2: raise ValueError('IP addresses provided were invalid. Please make sure it\'s a valid tuple with at least 1 address with others inputted as None')
 
         for ip in ips:
-            if not type(ip) is int or (ips.index(ip) == 1 and type(ip) is None): raise TelloError('IP addresses provided were invalid. Please make sure it\'s a valid tuple with at least 1 address with others inputted as None')
+            if not type(ip) is int or (ips.index(ip) == 1 and type(ip) is None): raise ValueError('IP addresses provided were invalid. Please make sure it\'s a valid tuple with at least 1 address with others inputted as None')
             ip_address(ip)
 
         ips = (ips[0], ips[1] if ips[1] else self._ips[1])
 
-        if ips == self._ips: raise TelloError('IPs provided are the same as the currently set ones')
+        if ips == self._ips: raise ValueError('IPs provided are the same as the currently set ones')
 
         self._ips = ips
 
@@ -276,14 +276,14 @@ class Tello:
         - ports: The ports that that you want the sockets to switch to
         '''
 
-        if not type(ports) is tuple or not len(ports) == 2: raise TelloError('Ports provided were invalid. Please make sure it\'s a valid tuple with at least 1 port with others inputted as None')
+        if not type(ports) is tuple or not len(ports) == 2: raise ValueError('Ports provided were invalid. Please make sure it\'s a valid tuple with at least 1 port with others inputted as None')
 
         for port in ports:
-            if not type(port) is int or None: raise TelloError('One or more ports provided were invalid. Please make sure they\'re valid integers and in proper port form')
+            if not type(port) is int or None: raise ValueError('One or more ports provided were invalid. Please make sure they\'re valid integers and in proper port form')
 
         ports = (ports[0], ports[1] if ports[1] else self._ports[1])
 
-        if ports == self._ports: raise TelloError('Ports provided are the same as the currently set ones')
+        if ports == self._ports: raise ValueError('Ports provided are the same as the currently set ones')
 
         self._ports = ports
         self._sevent.clear()
@@ -312,9 +312,9 @@ class Tello:
         - timeout: The amount of time you would like the socket's to wait for a response from a drone before a timeout error is raised (Must be at least 1 second)
         '''
 
-        if not type(timeout) is int or timeout < 1: raise TelloError('Timeout provided was invalid. Please make sure it\'s a integer and at least 1 second')
+        if not type(timeout) is int or timeout < 1: raise ValueError('Timeout provided was invalid. Please make sure it\'s a integer and at least 1 second')
 
-        if timeout == self._to: raise TelloError('Timeout provided was the same as the currently set one')
+        if timeout == self._to: raise ValueError('Timeout provided was the same as the currently set one')
 
         self._to = timeout
 
@@ -335,9 +335,9 @@ class Tello:
         - distance: The distance you want the drone to move (20+ cm)
         '''
 
-        if not type(distance) is int or not 20 <= distance: raise TelloError('Distance value provided was invalid. Please make sure it is a valid integer and at least 20cm')
+        if not type(distance) is int or not 20 <= distance: raise ValueError('Distance value provided was invalid. Please make sure it is a valid integer and at least 20cm')
 
-        if distance == self._dd: raise TelloError('Default distance value provided is the same as the currently set value')
+        if distance == self._dd: raise ValueError('Default distance value provided is the same as the currently set value')
 
         self._dd = distance
 
@@ -359,9 +359,9 @@ class Tello:
         - speed: The speed you want the drone to move at (10 - 60cm/s)
         '''
 
-        if not speed is int or not 10 <= speed <= 100: raise TelloError('Speed value provided was invalid. Please make sure it is a valid integer and at least 10')
+        if not speed is int or not 10 <= speed <= 100: raise ValueError('Speed value provided was invalid. Please make sure it is a valid integer and at least 10')
 
-        if speed == self._spd: raise TelloError('Default speed value provided is the same as the currently set value')
+        if speed == self._spd: raise ValueError('Default speed value provided is the same as the currently set value')
 
         self._send_sync('speed', 'setspd', speed)
         if self._debug: print(f'[TELLO] Set default speed on drone to -> {speed}cm/s')
@@ -385,9 +385,9 @@ class Tello:
         - preference: The state to set the mission pad preference to (True/False)
         '''
 
-        if not type(preference) is bool: raise TelloError('Preference value provided was invalid. Please make sure it\'s a valid boolean type')
+        if not type(preference) is bool: raise ValueError('Preference value provided was invalid. Please make sure it\'s a valid boolean type')
 
-        if preference == self._mp: raise TelloError('Mission pad preference provided is the same as the currently set one')
+        if preference == self._mp: raise ValueError('Mission pad preference provided is the same as the currently set one')
 
         if preference: self._send_sync('mon', 'basic')
         else: self._send_sync('moff', 'basic')
@@ -413,9 +413,9 @@ class Tello:
 
         c = callable(preference)
 
-        if not (type(preference) is bool or c): raise TelloError('Preference value provided was invalid. Please make sure it\'s a valid boolean type or a callable')
+        if not (type(preference) is bool or c): raise ValueError('Preference value provided was invalid. Please make sure it\'s a valid boolean type or a callable')
 
-        if preference == self._sync: raise TelloError('Sync preference provided is the same as the currently set one')
+        if preference == self._sync: raise ValueError('Sync preference provided is the same as the currently set one')
 
         self._sync = preference
 
@@ -436,9 +436,9 @@ class Tello:
         - preference: The state to set the syncfix preference to (True/False)
         '''
 
-        if not type(preference) is bool: raise TelloError('Preference value provided was invalid. Please make sure it\'s a valid boolean type')
+        if not type(preference) is bool: raise ValueError('Preference value provided was invalid. Please make sure it\'s a valid boolean type')
 
-        if preference == self._oos: raise TelloError('Syncfix preference provided is the same as the currently set one')
+        if preference == self._oos: raise ValueError('Syncfix preference provided is the same as the currently set one')
 
         self._oos = preference
 
@@ -459,9 +459,9 @@ class Tello:
         - preference: The state to set the debug preference to (True/False)
         '''
 
-        if not type(preference) is bool: raise TelloError('Preference value provided was invalid. Please make sure it\'s a valid boolean type')
+        if not type(preference) is bool: raise ValueError('Preference value provided was invalid. Please make sure it\'s a valid boolean type')
 
-        if preference == self._debug: raise TelloError('Debug preference provided is the same as the currently set one')
+        if preference == self._debug: raise ValueError('Debug preference provided is the same as the currently set one')
 
         if self._debug and not preference: print('[TELLO] Debug mode disabled')
         elif not self._debug and preference: print('[TELLO] Debug mode enabled')
@@ -543,7 +543,7 @@ class Tello:
                 return sender(f'{msg} {val}')
 
             case 'dist':
-                if not type(val) is int or not 20 <= val: raise TelloError('Distance value is incorrect. Please make sure it\'s a valid integer and at least 20cm')
+                if not type(val) is int or not 20 <= val: raise ValueError('Distance value is incorrect. Please make sure it\'s a valid integer and at least 20cm')
 
                 def disrun(val):
                     while val > 500:
@@ -559,7 +559,7 @@ class Tello:
                 return ret if len(ret) > 1 else ret[0]
 
             case 'rot':
-                if not type(val) is int or not 1 <= val <= 360: raise TelloError('Rotational value is incorrect. Please make sure it\'s a valid integer and between 1 - 360deg')
+                if not type(val) is int or not 1 <= val <= 360: raise ValueError('Rotational value is incorrect. Please make sure it\'s a valid integer and between 1 - 360deg')
 
                 return sender(f'{msg} {val}')
 
@@ -570,10 +570,10 @@ class Tello:
                     isd = type(n) is int
 
                     if val.index(n) == len(val)-1:
-                        if not isd: raise TelloError('Speed value is incorrect. Please make sure it\'s a valid integer')
-                        elif n[1] and not 10 <= n <= 60: raise TelloError('Speed value is incorrect. Please make sure it\'s between 10 - 60cm/s')
-                        elif not n[1] and not 10 <= n <= 100: raise TelloError('Speed value is incorrect. Please make sure it\'s between 10 - 100cm/s')
-                    elif not isd or not -500 <= n <= 500: raise TelloError('coordinate value is incorrect. Please make sure it\'s a valid integer and between -500 - 500cm')
+                        if not isd: raise ValueError('Speed value is incorrect. Please make sure it\'s a valid integer')
+                        elif n[1] and not 10 <= n <= 60: raise ValueError('Speed value is incorrect. Please make sure it\'s between 10 - 60cm/s')
+                        elif not n[1] and not 10 <= n <= 100: raise ValueError('Speed value is incorrect. Please make sure it\'s between 10 - 100cm/s')
+                    elif not isd or not -500 <= n <= 500: raise ValueError('coordinate value is incorrect. Please make sure it\'s a valid integer and between -500 - 500cm')
 
                     msg += f'{n} '
 
@@ -588,11 +588,11 @@ class Tello:
                     isd = type(n) is int
 
                     if ind == leg-2:
-                        if not isd: raise TelloError('Speed value is incorrect. Please make sure it\'s a valid integer')
-                        elif n[1] and not 10 <= n <= 60: raise TelloError('Speed value is incorrect. Please make sure it\'s between 10 - 60cm/s')
-                        elif not n[1] and not 10 <= n <= 100: raise TelloError('Speed value is incorrect. Please make sure it\'s between 10 - 100cm/s')
-                    elif ind == leg-1 and not type(n) == str or not match(r'^[m][1-8]$', n): raise TelloError('Mission Pad value is incorrect. Please make sure it\'s a valid string and is between m1 - m8')
-                    elif not isd or not -500 <= n <= 500: raise TelloError('coordinate value is incorrect. Please make sure it\'s a valid integer and between -500 - 500cm')
+                        if not isd: raise ValueError('Speed value is incorrect. Please make sure it\'s a valid integer')
+                        elif n[1] and not 10 <= n <= 60: raise ValueError('Speed value is incorrect. Please make sure it\'s between 10 - 60cm/s')
+                        elif not n[1] and not 10 <= n <= 100: raise ValueError('Speed value is incorrect. Please make sure it\'s between 10 - 100cm/s')
+                    elif ind == leg-1 and not type(n) == str or not match(r'^[m][1-8]$', n): raise ValueError('Mission Pad value is incorrect. Please make sure it\'s a valid string and is between m1 - m8')
+                    elif not isd or not -500 <= n <= 500: raise ValueError('coordinate value is incorrect. Please make sure it\'s a valid integer and between -500 - 500cm')
 
                     msg += f'{n} '
 
@@ -607,19 +607,19 @@ class Tello:
                     isd = type(n) is int
 
                     if ind == leg-4:
-                        if not isd: raise TelloError('Speed value is incorrect. Please make sure it\'s a valid integer')
-                        elif n[1] and not 10 <= n <= 60: raise TelloError('Speed value is incorrect. Please make sure it\'s between 10 - 60cm/s')
-                        elif not n[1] and not 10 <= n <= 100: raise TelloError('Speed value is incorrect. Please make sure it\'s between 10 - 100cm/s')
-                    elif ind == leg-3 and not 1 <= n <= 360: raise TelloError('Yaw value is incorrect. Please make sure it\'s a valid integer and between 1 - 360deg')
-                    elif ind == leg-1 or ind == leg-2 and not type(n) == str or not match(r'^[m][1-8]$', n): raise TelloError('Mission Pad value is incorrect. Please make sure it\'s a valid string and is between m1 - m8')
-                    elif not isd or not -500 <= n <= 500: raise TelloError('coordinate value is incorrect. Please make sure it\'s a valid integer and between -500 - 500cm')
+                        if not isd: raise ValueError('Speed value is incorrect. Please make sure it\'s a valid integer')
+                        elif n[1] and not 10 <= n <= 60: raise ValueError('Speed value is incorrect. Please make sure it\'s between 10 - 60cm/s')
+                        elif not n[1] and not 10 <= n <= 100: raise ValueError('Speed value is incorrect. Please make sure it\'s between 10 - 100cm/s')
+                    elif ind == leg-3 and not 1 <= n <= 360: raise ValueError('Yaw value is incorrect. Please make sure it\'s a valid integer and between 1 - 360deg')
+                    elif ind == leg-1 or ind == leg-2 and not type(n) == str or not match(r'^[m][1-8]$', n): raise ValueError('Mission Pad value is incorrect. Please make sure it\'s a valid string and is between m1 - m8')
+                    elif not isd or not -500 <= n <= 500: raise ValueError('coordinate value is incorrect. Please make sure it\'s a valid integer and between -500 - 500cm')
 
                     msg += f'{n} '
 
                 return sender(msg.rstrip())
 
             case 'setspd':
-                if not type(val) is int or not 10 <= val <= 60: raise TelloError('Speed value is incorrect. Please make sure it\'s a valid integer and between 10 - 60cm/s')
+                if not type(val) is int or not 10 <= val <= 60: raise ValueError('Speed value is incorrect. Please make sure it\'s a valid integer and between 10 - 60cm/s')
 
                 self._spd = val
 
@@ -629,7 +629,7 @@ class Tello:
                 msg = f'{msg} '
 
                 for n in val:
-                    if not type(n) is int or not -100 <= n <= 100: raise TelloError('Joystick distance value is incorrect. Please make sure it\'s a valid integer and between -100 - 100')
+                    if not type(n) is int or not -100 <= n <= 100: raise ValueError('Joystick distance value is incorrect. Please make sure it\'s a valid integer and between -100 - 100')
                     msg += f'{n} '
 
                 return sender(msg.rstrip())
@@ -642,9 +642,9 @@ class Tello:
                         val[0] = input('Enter new WiFi SSID: ').strip()
                         val[1] = getpass('Enter new WiFi password: ').strip()
                     except: return
-                if not type(val[0]) is str or not len(val[0]): raise TelloError('WiFi SSID value is incorrect. Please make sure it\'s a valid string and at least 1 character')
-                elif not type(val[1]) is str or not len(val[1]) >= 5: raise TelloError('WiFi password value is incorrect. Please make sure it\'s a valid string and at least 5 characters')
-                elif not match(r'(?=(?:[^a-z]*[a-z]){2})(?=(?:[^A-Z]*[A-Z]){2})(?=(?:[^0-9]*[0-9]){1})', val[1]): raise TelloError('WiFi password value is insecure. Please make sure it contains at least 2 lowercase and uppercase letters and 1 number')
+                if not type(val[0]) is str or not len(val[0]) or not val[0].isascii(): raise ValueError('WiFi SSID value is incorrect. Please make sure it\'s a valid string in ascii and at least 1 character')
+                elif not type(val[1]) is str or not len(val[1]) >= 5 or not val[1].isascii(): raise ValueError('WiFi password value is incorrect. Please make sure it\'s a valid string in ascii and at least 5 characters')
+                elif not match(r'(?=(?:[^a-z]*[a-z]){2})(?=(?:[^A-Z]*[A-Z]){2})(?=(?:[^0-9]*[0-9]){1})', val[1]): raise ValueError('WiFi password value is insecure. Please make sure it contains at least 2 lowercase and uppercase letters and 1 number')
 
                 return sender(f'{msg} {val[0]} {val[1]}')
 
@@ -657,14 +657,14 @@ class Tello:
                         val[1] = getpass('Enter WiFi password: ').strip()
                     except: return
 
-                if not type(val[0]) is str or not len(val[0]): raise TelloError('WiFi SSID value is incorrect. Please make sure it\'s a valid string and at least 1 character')
-                elif not type(val[1]) is str or not len(val[1]): raise TelloError('WiFi password value is incorrect. Please make sure it\'s a valid string and at least 1 character')
+                if not type(val[0]) is str or not len(val[0]): raise ValueError('WiFi SSID value is incorrect. Please make sure it\'s a valid string and at least 1 character')
+                elif not type(val[1]) is str or not len(val[1]): raise ValueError('WiFi password value is incorrect. Please make sure it\'s a valid string and at least 1 character')
 
                 return sender(f'{msg} {val[0]} {val[1]}')
 
             case 'mpad':
-                if not self._mp: raise TelloError('Mission pad detection hasn\'t been enabled yet. Please run the mission_pad() method first')
-                elif not val is int or not 0 <= val <= 2: raise TelloError('Mission Pad Detection value is incorrect. Please make sure it\'s a valid integer and between 0 - 2')
+                if not self._mp: raise ValueError('Mission pad detection hasn\'t been enabled yet. Please run the mission_pad() method first')
+                elif not val is int or not 0 <= val <= 2: raise ValueError('Mission Pad Detection value is incorrect. Please make sure it\'s a valid integer and between 0 - 2')
 
                 return sender(f'{msg} {val}')
 
@@ -681,7 +681,7 @@ class Tello:
                 self._cqueue.put((f'{msg} {val}', callback))
 
             case 'dist':
-                if not type(val) is int or not 20 <= val: raise TelloError('Distance value is incorrect. Please make sure it\'s a valid integer and at least 20cm')
+                if not type(val) is int or not 20 <= val: raise ValueError('Distance value is incorrect. Please make sure it\'s a valid integer and at least 20cm')
 
                 def disrun(val):
                     while val > 500:
@@ -692,7 +692,7 @@ class Tello:
                 for dist in disrun(val): self._cqueue.put((f'{msg} {dist}', callback))
 
             case 'rot':
-                if not type(val) is int or not 1 <= val <= 360: raise TelloError('Rotational value is incorrect. Please make sure it\'s a valid integer and between 1 - 360deg')
+                if not type(val) is int or not 1 <= val <= 360: raise ValueError('Rotational value is incorrect. Please make sure it\'s a valid integer and between 1 - 360deg')
 
                 self._cqueue.put((f'{msg} {val}', callback))
 
@@ -703,10 +703,10 @@ class Tello:
                     isd = n is int
 
                     if val.index(n) == len(val)-1:
-                        if not isd: raise TelloError('Speed value is incorrect. Please make sure it\'s a valid integer')
-                        elif n[1] and not 10 <= n <= 60: raise TelloError('Speed value is incorrect. Please make sure it\'s between 10 - 60cm/s')
-                        elif not n[1] and not 10 <= n <= 100: raise TelloError('Speed value is incorrect. Please make sure it\'s between 10 - 100cm/s')
-                    elif not isd or not -500 <= n <= 500: raise TelloError('coordinate value is incorrect. Please make sure it\'s a valid integer and between -500 - 500cm')
+                        if not isd: raise ValueError('Speed value is incorrect. Please make sure it\'s a valid integer')
+                        elif n[1] and not 10 <= n <= 60: raise ValueError('Speed value is incorrect. Please make sure it\'s between 10 - 60cm/s')
+                        elif not n[1] and not 10 <= n <= 100: raise ValueError('Speed value is incorrect. Please make sure it\'s between 10 - 100cm/s')
+                    elif not isd or not -500 <= n <= 500: raise ValueError('coordinate value is incorrect. Please make sure it\'s a valid integer and between -500 - 500cm')
 
                     msg += f'{n} '
 
@@ -721,11 +721,11 @@ class Tello:
                     isd = n is int
 
                     if ind == leg-2:
-                        if not isd: raise TelloError('Speed value is incorrect. Please make sure it\'s a valid integer')
-                        elif n[1] and not 10 <= n <= 60: raise TelloError('Speed value is incorrect. Please make sure it\'s between 10 - 60cm/s')
-                        elif not n[1] and not 10 <= n <= 100: raise TelloError('Speed value is incorrect. Please make sure it\'s between 10 - 100cm/s')
-                    elif ind == leg-1 and not type(n) is str or not match(r'^[m][1-8]$', val): raise TelloError('Mission Pad value is incorrect. Please make sure it\'s a valid string and is between m1 - m8')
-                    elif not isd or not -500 <= n <= 500: raise TelloError('coordinate value is incorrect. Please make sure it\'s a valid integer and between -500 - 500cm')
+                        if not isd: raise ValueError('Speed value is incorrect. Please make sure it\'s a valid integer')
+                        elif n[1] and not 10 <= n <= 60: raise ValueError('Speed value is incorrect. Please make sure it\'s between 10 - 60cm/s')
+                        elif not n[1] and not 10 <= n <= 100: raise ValueError('Speed value is incorrect. Please make sure it\'s between 10 - 100cm/s')
+                    elif ind == leg-1 and not type(n) is str or not match(r'^[m][1-8]$', val): raise ValueError('Mission Pad value is incorrect. Please make sure it\'s a valid string and is between m1 - m8')
+                    elif not isd or not -500 <= n <= 500: raise ValueError('coordinate value is incorrect. Please make sure it\'s a valid integer and between -500 - 500cm')
 
                     msg += f'{n} '
 
@@ -740,19 +740,19 @@ class Tello:
                     isd = n is int
 
                     if ind == leg-4:
-                        if not isd: raise TelloError('Speed value is incorrect. Please make sure it\'s a valid integer')
-                        elif n[1] and not 10 <= n <= 60: raise TelloError('Speed value is incorrect. Please make sure it\'s between 10 - 60cm/s')
-                        elif not n[1] and not 10 <= n <= 100: raise TelloError('Speed value is incorrect. Please make sure it\'s between 10 - 100cm/s')
-                    elif ind == leg-3 and not 1 <= n <= 360: raise TelloError('Yaw value is incorrect. Please make sure it\'s a valid integer and between 1 - 360deg')
-                    elif ind == leg-1 or ind == leg-2 and not type(n) is str or not match(r'^[m][1-8]$', val): raise TelloError('Mission Pad value is incorrect. Please make sure it\'s a valid string and is between m1 - m8')
-                    elif not isd or not -500 <= n <= 500: raise TelloError('coordinate value is incorrect. Please make sure it\'s a valid integer and between -500 - 500cm')
+                        if not isd: raise ValueError('Speed value is incorrect. Please make sure it\'s a valid integer')
+                        elif n[1] and not 10 <= n <= 60: raise ValueError('Speed value is incorrect. Please make sure it\'s between 10 - 60cm/s')
+                        elif not n[1] and not 10 <= n <= 100: raise ValueError('Speed value is incorrect. Please make sure it\'s between 10 - 100cm/s')
+                    elif ind == leg-3 and not 1 <= n <= 360: raise ValueError('Yaw value is incorrect. Please make sure it\'s a valid integer and between 1 - 360deg')
+                    elif ind == leg-1 or ind == leg-2 and not type(n) is str or not match(r'^[m][1-8]$', val): raise ValueError('Mission Pad value is incorrect. Please make sure it\'s a valid string and is between m1 - m8')
+                    elif not isd or not -500 <= n <= 500: raise ValueError('coordinate value is incorrect. Please make sure it\'s a valid integer and between -500 - 500cm')
 
                     msg += f'{n} '
 
                 self._cqueue.put((msg.rstrip(), callback))
 
             case 'setspd':
-                if not type(val) is int or not 10 <= val <= 60: raise TelloError('Speed value is incorrect. Please make sure it\'s a valid integer and between 10 - 60cm/s')
+                if not type(val) is int or not 10 <= val <= 60: raise ValueError('Speed value is incorrect. Please make sure it\'s a valid integer and between 10 - 60cm/s')
 
                 self._spd = val
 
@@ -762,7 +762,7 @@ class Tello:
                 msg = f'{msg} '
 
                 for n in val:
-                    if not type(n) is int or not -100 <= val <= 100: raise TelloError('Joystick distance value is incorrect. Please make sure it\'s a valid integer and between -100 - 100')
+                    if not type(n) is int or not -100 <= val <= 100: raise ValueError('Joystick distance value is incorrect. Please make sure it\'s a valid integer and between -100 - 100')
                     msg += f'{n} '
 
                 self._cqueue.put((msg.rstrip(), callback))
@@ -775,9 +775,9 @@ class Tello:
                         val[0] = input('Enter new WiFi SSID: ').strip()
                         val[1] = getpass('Enter new WiFi password: ').strip()
                     except: return
-                if not type(val[0]) is str or not len(val[0]): raise TelloError('WiFi SSID value is incorrect. Please make sure it\'s a valid string and at least 1 character')
-                elif not type(val[1]) is str or not len(val[1]) >= 5: raise TelloError('WiFi password value is incorrect. Please make sure it\'s a valid string and at least 5 characters')
-                elif not match(r'(?=(?:[^a-z]*[a-z]){2})(?=(?:[^A-Z]*[A-Z]){2})(?=(?:[^0-9]*[0-9]){1})', val[1]): raise TelloError('WiFi password value is insecure. Please make sure it contains at least 2 lowercase and uppercase letters and 1 number')
+                if not type(val[0]) is str or not len(val[0]): raise ValueError('WiFi SSID value is incorrect. Please make sure it\'s a valid string and at least 1 character')
+                elif not type(val[1]) is str or not len(val[1]) >= 5: raise ValueError('WiFi password value is incorrect. Please make sure it\'s a valid string and at least 5 characters')
+                elif not match(r'(?=(?:[^a-z]*[a-z]){2})(?=(?:[^A-Z]*[A-Z]){2})(?=(?:[^0-9]*[0-9]){1})', val[1]): raise ValueError('WiFi password value is insecure. Please make sure it contains at least 2 lowercase and uppercase letters and 1 number')
 
                 self._cqueue.put((f'{msg} {val[0]} {val[1]}', callback))
 
@@ -790,14 +790,14 @@ class Tello:
                         val[1] = getpass('Enter WiFi password: ').strip()
                     except: return
 
-                if not type(val[0]) is str or not len(val[0]): raise TelloError('WiFi SSID value is incorrect. Please make sure it\'s a valid string and at least 1 character')
-                elif not type(val[1]) is str or not len(val[1]): raise TelloError('WiFi password value is incorrect. Please make sure it\'s a valid string and at least 1 character')
+                if not type(val[0]) is str or not len(val[0]): raise ValueError('WiFi SSID value is incorrect. Please make sure it\'s a valid string and at least 1 character')
+                elif not type(val[1]) is str or not len(val[1]): raise ValueError('WiFi password value is incorrect. Please make sure it\'s a valid string and at least 1 character')
 
                 self._cqueue.put((f'{msg} {val[0]} {val[1]}', callback))
 
             case 'mpad':
-                if not self._mp: raise TelloError('Mission pad detection hasn\'t been enabled yet. Please run the mission_pad() method first')
-                elif not type(val) is int or not 0 <= val <= 2: raise TelloError('Mission Pad Detection value is incorrect. Please make sure it\'s a valid integer and between 0 - 2')
+                if not self._mp: raise ValueError('Mission pad detection hasn\'t been enabled yet. Please run the mission_pad() method first')
+                elif not type(val) is int or not 0 <= val <= 2: raise ValueError('Mission Pad Detection value is incorrect. Please make sure it\'s a valid integer and between 0 - 2')
 
                 self._cqueue.put((f'{msg} {val}', callback))
 
@@ -1576,13 +1576,13 @@ class Tello:
         callback = preferences['callback'] if 'callback' in preferences else False
         window = preferences['window'] if 'window' in preferences else False
 
-        if not type(window) is bool: raise TelloError('Window preference provided was invalid. Please make sure it\'s a valid boolean type')
-        elif not type(path) is str or not len(path) or not match(r'([:](?=[\/]+))|(^[\.](?=[\/]+))|(^[\~](?=[\/]+))|(^[\/](?=\w+))', path): raise TelloError('Provided path was invalid. Please make sure it\'s a valid string and in proper path format')
-        elif not type(resolution) == None and (not type(resolution) is tuple or not len(resolution) == 2): raise TelloError('Provided resolution was invalid. Please make sure it\'s a valid tuple with 2 integers providing the width and height of the resolution')
-        elif not callback == False and not callable(callback): raise TelloError('Callback function is incorrect. Please make sure it\'s a callable')
+        if not type(window) is bool: raise ValueError('Window preference provided was invalid. Please make sure it\'s a valid boolean type')
+        elif not type(path) is str or not len(path) or not match(r'([:](?=[\/]+))|(^[\.](?=[\/]+))|(^[\~](?=[\/]+))|(^[\/](?=\w+))', path): raise ValueError('Provided path was invalid. Please make sure it\'s a valid string and in proper path format')
+        elif not type(resolution) == None and (not type(resolution) is tuple or not len(resolution) == 2): raise ValueError('Provided resolution was invalid. Please make sure it\'s a valid tuple with 2 integers providing the width and height of the resolution')
+        elif not callback == False and not callable(callback): raise ValueError('Callback function is incorrect. Please make sure it\'s a callable')
 
         for res in resolution:
-            if not type(res) is int: raise TelloError('Provided resolution was invalid. Please make sure it\'s a valid tuple with 2 integers providing the width and height of the resolution')
+            if not type(res) is int: raise ValueError('Provided resolution was invalid. Please make sure it\'s a valid tuple with 2 integers providing the width and height of the resolution')
 
         path = path.rsplit('/', 1)
         file = path[1] if '.' in path[1] else '{}.png'.format(datetime.now().strftime('%d_%m_%y_%H_%M_%S'))
@@ -1654,11 +1654,11 @@ class Tello:
         resolution = preferences['resolution'] if 'resolution' in preferences else (960, 720)
         callback = preferences['callback'] if 'callback' in preferences else False
 
-        if not type(resolution) is tuple or not len(resolution) == 2: raise TelloError('Provided resolution was invalid. Please make sure it\'s a valid tuple with 2 integers providing the width and height of the resolution')
-        elif callback and not callable(callback): raise TelloError('Callback function is incorrect. Please make sure it\'s a callable')
+        if not type(resolution) is tuple or not len(resolution) == 2: raise ValueError('Provided resolution was invalid. Please make sure it\'s a valid tuple with 2 integers providing the width and height of the resolution')
+        elif callback and not callable(callback): raise ValueError('Callback function is incorrect. Please make sure it\'s a callable')
 
         for res in resolution:
-            if not type(res) is int: raise TelloError('Provided resolution was invalid. Please make sure it\'s a valid tuple with 2 integers providing the width and height of the resolution')
+            if not type(res) is int: raise ValueError('Provided resolution was invalid. Please make sure it\'s a valid tuple with 2 integers providing the width and height of the resolution')
 
         if callback:
             def thread():
@@ -1720,14 +1720,14 @@ class Tello:
         window = preferences['window'] if 'window' in preferences else False
         rb = resolution[0] * resolution[1] * 3
 
-        if not type(path) is str or not len(path) or not match(r'([:](?=[\/]+))|(^[\.](?=[\/]+))|(^[\~](?=[\/]+))|(^[\/](?=\w+))', path): raise TelloError('Provided path was invalid. Please make sure it\'s a valid string and in proper path format')
-        elif not type(resolution) is tuple or not len(resolution) == 2: raise TelloError('Provided resolution was invalid. Please make sure it\'s a valid tuple with 2 integers providing the width and height of the resolution')
-        elif not type(framerate) is int or not 10 <= framerate <= 60: raise TelloError('Provided framerate was invalid. Please make sure it\'s a valid integer and inbetween 10 - 60')
-        elif not type(window) is bool: raise TelloError('Window value provided was invalid. Please make sure it\'s a valid boolean type')
-        elif not callback == None and not callable(callback): raise TelloError('Callback function is incorrect. Please make sure it\'s a callable')
+        if not type(path) is str or not len(path) or not match(r'([:](?=[\/]+))|(^[\.](?=[\/]+))|(^[\~](?=[\/]+))|(^[\/](?=\w+))', path): raise ValueError('Provided path was invalid. Please make sure it\'s a valid string and in proper path format')
+        elif not type(resolution) is tuple or not len(resolution) == 2: raise ValueError('Provided resolution was invalid. Please make sure it\'s a valid tuple with 2 integers providing the width and height of the resolution')
+        elif not type(framerate) is int or not 10 <= framerate <= 60: raise ValueError('Provided framerate was invalid. Please make sure it\'s a valid integer and inbetween 10 - 60')
+        elif not type(window) is bool: raise ValueError('Window value provided was invalid. Please make sure it\'s a valid boolean type')
+        elif not callback == None and not callable(callback): raise ValueError('Callback function is incorrect. Please make sure it\'s a callable')
 
         for res in resolution:
-            if not type(res) is int: raise TelloError('Provided resolution was invalid. Please make sure it\'s a valid tuple with 2 integers providing the width and height of the resolution')
+            if not type(res) is int: raise ValueError('Provided resolution was invalid. Please make sure it\'s a valid tuple with 2 integers providing the width and height of the resolution')
 
         if window and self._web: raise TelloError('Webserver on live method already created. Please run the stop_live() method first')
 
@@ -1855,12 +1855,12 @@ class Tello:
         callback = preferences['callback'] if 'callback' in preferences else False
         rb = resolution[0] * resolution[1] * 3
 
-        if not type(resolution) is tuple or not len(resolution) == 2: raise TelloError('Provided resolution was invalid. Please make sure it\'s a valid tuple with 2 integers providing the width and height of the resolution')
-        elif not type(frames) is int: raise TelloError('Provided frame count was invalid. Please make sure it\'s a valid integer')
-        elif callback and not callable(callback): raise TelloError('Callback function is incorrect. Please make sure it\'s a callable')
+        if not type(resolution) is tuple or not len(resolution) == 2: raise ValueError('Provided resolution was invalid. Please make sure it\'s a valid tuple with 2 integers providing the width and height of the resolution')
+        elif not type(frames) is int: raise ValueError('Provided frame count was invalid. Please make sure it\'s a valid integer')
+        elif callback and not callable(callback): raise ValueError('Callback function is incorrect. Please make sure it\'s a callable')
 
         for res in resolution:
-            if not type(res) is int: raise TelloError('Provided resolution was invalid. Please make sure it\'s a valid tuple with 2 integers providing the width and height of the resolution')
+            if not type(res) is int: raise ValueError('Provided resolution was invalid. Please make sure it\'s a valid tuple with 2 integers providing the width and height of the resolution')
 
         ret = []
 
@@ -1943,8 +1943,8 @@ class Tello:
         framerate = preferences['framerate'] if 'framerate' in preferences else 60
         rb = resolution[0] * resolution[1] * 3
 
-        if not type(resolution) is tuple or not len(resolution) == 2: raise TelloError('Provided resolution was invalid. Please make sure it\'s a valid tuple with 2 integers providing the width and height of the resolution')
-        elif not type(framerate) is int or not 10 <= framerate <= 60: raise TelloError('Provided framerate was invalid. Please make sure it\'s a valid integer and inbetween 10 - 60')
+        if not type(resolution) is tuple or not len(resolution) == 2: raise ValueError('Provided resolution was invalid. Please make sure it\'s a valid tuple with 2 integers providing the width and height of the resolution')
+        elif not type(framerate) is int or not 10 <= framerate <= 60: raise ValueError('Provided framerate was invalid. Please make sure it\'s a valid integer and inbetween 10 - 60')
 
         if self._web: raise TelloError('Webserver on video method already created. Please run the stop_video() method first')
 
