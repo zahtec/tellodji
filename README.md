@@ -36,7 +36,7 @@ git clone https://github.com/zahtec/tellodji.git
 
 Read the [wiki](https://github.com/zahtec/tellodji/wiki)
 
-Or, if you would like to go into a deeper dive on the Tello sdk:
+Or, if you would like to go into a deeper dive on the Tello SDK:
 
 - [Read the v1.3 version](https://terra-1-g.djicdn.com/2d4dce68897a46b19fc717f3576b7c6a/Tello%20%E7%BC%96%E7%A8%8B%E7%9B%B8%E5%85%B3/For%20Tello/Tello%20SDK%20Documentation%20EN_1.3_1122.pdf)
 - [Read the v2.0 version](https://dl-cdn.ryzerobotics.com/downloads/Tello/Tello%20SDK%202.0%20User%20Guide.pdf)
