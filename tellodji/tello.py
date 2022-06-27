@@ -67,7 +67,7 @@ class Tello:
     HD = (960, 720)
     SD = (640, 480)
 
-    def __init__(self, ips: tuple[int | None] = ('192.168.10.1', '0.0.0.0'), ports: tuple[int | None] = (8889, 8890, 11111), **preferences: Union[int, bool]) -> None:
+    def __init__(self, ips: tuple[str | None] = ('192.168.10.1', '0.0.0.0'), ports: tuple[int | None] = (8889, 8890, 11111), **preferences: Union[int, bool]) -> None:
         if len(ips) != 2 or (ips[0] and ips[1] == None): raise ValueError('IP addresses provided were invalid. Please make sure it\'s a valid tuple with at least 1 address with others inputted as None')
         elif len(ports) != 3 or (ports[0] and ports[1] and ports[2] == None): raise ValueError('Ports provided were invalid. Please make sure it\'s a valid tuple with at least 1 port with others inputted as None')
         elif 'default_distance' in preferences and (type(preferences['default_distance']) is not int or not 20 <= preferences['default_distance']): raise ValueError('Default distance value provided was invalid. Please make sure it\'s a valid integer and at at least 20cm')
