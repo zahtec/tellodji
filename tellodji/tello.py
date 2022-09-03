@@ -1651,7 +1651,7 @@ class Tello:
             Thread(target=thread).start()
             return self
 
-    def photo_bytes(self, **preferences: Union[tuple[int], Callable, bool]) -> Union['Tello', bytes]:
+    def photo_bytes(self, **preferences: Union[tuple[int], Callable, bool]) -> Union[bytes, 'Tello']:
         '''
         Returns the bytes of the photo taken in the provided/default resolution
 
@@ -1891,7 +1891,7 @@ class Tello:
 
             Thread(target=thread).start()
 
-    def video_bytes(self, **preferences: Union[tuple[int], int, bool, Callable]) -> Union['Tello', list[bytes]]:
+    def video_bytes(self, **preferences: Union[tuple[int], int, bool, Callable]) -> Union[list[bytes], 'Tello']:
         '''
         Returns a list of each video frame with the bytes of said frame being taken in the provided/default resolution. Will not stop appending frames until the provided max frames is met or the Tello.stop_frames() method is run
 
