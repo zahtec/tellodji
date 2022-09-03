@@ -5,7 +5,7 @@ from tellodji import Tello
 from io import BytesIO
 
 # Construct Tello class with verbose logging and automatic drone video stream turn on. Also with automatic takeoff
-drone = Tello(('127.0.0.1', None), debug = True, video = True, takeoff = True)
+drone = Tello(('127.0.0.1', None), debug=True, video=True, takeoff=True)
 
 # Make the drone go up 30cm
 drone.up(30)

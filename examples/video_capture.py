@@ -2,13 +2,13 @@
 from tellodji import Tello
 
 # Construct Tello class with verbose logging and automatic drone video stream turn on. Also set the default distance to 100cm
-drone = Tello(debug = True, video = True, default_rotation = 180)
+drone = Tello(debug=True, video=True, default_rotation=180)
 
 # Takeoff drone
 drone.takeoff()
 
 # Set the drones default speed to 60cm/s
-drone.speed(60)
+drone.set_default_speed(60)
 
 # Make drone go forward 100cm
 drone.forward(100)
@@ -36,7 +36,7 @@ drone.down(50)
 drone.stop_video()
 
 # Start another video, this time in mov format
-drone.start_video(path = './videos/video.mov')
+drone.start_video(path='./videos/video.mov')
 
 # Lets do another cool sequence!
 # Make the drone go up 50cm

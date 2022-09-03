@@ -2,7 +2,7 @@
 from tellodji import Tello
 
 # Construct Tello class with verbose logging and automatic drone video stream turn on. Also automatically takeoff the dron
-drone = Tello(debug = True, video = True, takeoff = True)
+drone = Tello(debug=True, video=True, takeoff=True)
 
 # Set the drones default speed to 60cm/s
 drone.speed(60)

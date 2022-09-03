@@ -2,7 +2,7 @@
 from tellodji import Tello
 
 # Construct Tello class with verbose logging and automatic takeoff
-drone = Tello(debug = True, takeoff = True)
+drone = Tello(debug=True, takeoff=True)
 
 # Get battery level and print it
 print(drone.get_battery())

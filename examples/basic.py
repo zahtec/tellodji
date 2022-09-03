@@ -2,7 +2,7 @@
 from tellodji import Tello
 
 # Construct Tello class with verbose logging
-drone = Tello(debug = True)
+drone = Tello(debug=True)
 
 # Get battery level and print it
 print(drone.get_battery())
@@ -19,6 +19,7 @@ drone.forward(800)
 # Define a callback function for the next few methods
 def callback(res):
     print(res)
+
 
 # Set default callback function so we don't have to repeat ourselves
 drone.set_sync(callback)

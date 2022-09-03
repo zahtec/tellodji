@@ -2,7 +2,7 @@
 from tellodji import Tello
 
 # Construct Tello class with verbose logging and automatic drone video stream turn on. Also set the default distance to 100cm
-drone = Tello(debug = True, video = True, default_distance = 100)
+drone = Tello(debug=True, video=True, default_distance=100)
 
 # Takeoff drone
 drone.takeoff()
@@ -23,7 +23,7 @@ drone.photo()
 drone.clockwise(180)
 
 # Takes a photo into the directory ./other_photos in 480p (Using the class constant SD). Then displays in the default image viewing program on your platform
-drone.photo(path = './other_photos/', resolution = Tello.SD, window = True)
+drone.photo(path='./other_photos/', resolution=Tello.SD, window=True)
 
 # Land the drone
 drone.land()

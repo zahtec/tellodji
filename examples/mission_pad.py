@@ -2,7 +2,7 @@
 from tellodji import Tello
 
 # Construct Tello class with verbose logging and mission pads enabled. With auto takeoff
-drone = Tello(debug = True, mission_pad = True, takeoff = True)
+drone = Tello(debug=True, mission_pad=True, takeoff=True)
 
 # Get the current main mission pad ID and print it
 print(drone.get_mission_pad())
