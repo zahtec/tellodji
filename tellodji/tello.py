@@ -27,7 +27,6 @@ MISSION_PAD = Union[Literal['m1'], Literal['m2'], Literal['m3'],
                     Literal['m4'], Literal['m5'], Literal['m6'], Literal['m7'], Literal['m8']]
 
 
-@tello_decor
 class Tello:
     '''
     The main class for the Tello library. Used to construct a socket that will send & receive data from any
@@ -847,9 +846,10 @@ class Tello:
         for key, val in self._slist.items():
             if key in msgs:
                 ret.append(val)
-            else:
-                raise TelloError(
-                    'The status requested is only available when mission pads are enabled. Please run the Tello.set_mission_pad() method first to use this method')
+
+        if not len(ret):
+            raise TelloError(
+                'The status requested is only available when mission pads are enabled. Please run the Tello.set_mission_pad() method first to use this method')
 
         return tuple(ret)
 
